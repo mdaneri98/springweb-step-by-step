@@ -1,5 +1,7 @@
 
-webapp/target
+
+*/target
+
 webapp/.settings
 .settings
 .metadata
