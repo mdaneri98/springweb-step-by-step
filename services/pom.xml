@@ -16,6 +16,11 @@
   <url>http://www.example.com</url>
 
   <dependencies>
+    <dependency>
+      <groupId>${parent.groupId}</groupId>
+      <artifactId>interfaces</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

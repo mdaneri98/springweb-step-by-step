@@ -1,5 +1,6 @@
 
-webapp/.target
+webapp/target
+webapp/.settings
 .settings
 .metadata
 .idea
