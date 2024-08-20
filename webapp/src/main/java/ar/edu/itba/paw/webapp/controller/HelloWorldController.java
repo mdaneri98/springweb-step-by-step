@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.controller;
 
+import ar.edu.itba.paw.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,16 +15,14 @@ import org.springframework.web.servlet.ViewResolver;
 @Controller
 public class HelloWorldController {
 
+    private UserService userService;
 
-    @Autowired
-    public HelloWorldController(@Qualifier("viewResolver") final ViewResolver vr) {
 
-    }
 
     @RequestMapping("/")
     public ModelAndView helloWorld() {
         final ModelAndView mav = new ModelAndView("index");
-        mav.addObject("greeting", "PAW");
+        mav.addObject("greeting", userService.findById(1).get().getUsername());
         return mav;
     }
 

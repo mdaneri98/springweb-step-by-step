@@ -33,14 +33,20 @@
       <artifactId>jstl</artifactId>
     </dependency>
 
-    <!--
+    
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+      <groupId>${parent.groupId}</groupId>
+      <artifactId>interfaces</artifactId>
+      <version>${project.version}</version>
     </dependency>
-    -->
+    <!-- Necesitamos que esté disponible en tiempo de ejecución,
+    de forma de usar la interfaz unicamente en compilación. -->
+    <dependency>
+      <groupId>${parent.groupId}</groupId>
+      <artifactId>services</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
 
   <build>

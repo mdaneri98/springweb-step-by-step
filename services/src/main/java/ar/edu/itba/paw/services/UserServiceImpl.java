@@ -9,7 +9,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(long id) {
-        return Optional.empty();
+        return Optional.of(new User("Yo mismo :)"));
     }
 
 }
