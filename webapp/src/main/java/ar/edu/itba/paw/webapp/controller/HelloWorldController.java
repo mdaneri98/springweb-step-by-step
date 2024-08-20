@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ViewResolver;
 @Controller
 public class HelloWorldController {
 
-    private UserService userService;
+    private final UserService userService;
 
-
+    public HelloWorldController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
     public ModelAndView helloWorld() {

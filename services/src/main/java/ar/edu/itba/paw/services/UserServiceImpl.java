@@ -1,11 +1,12 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
-
 
     @Override
     public Optional<User> findById(long id) {
