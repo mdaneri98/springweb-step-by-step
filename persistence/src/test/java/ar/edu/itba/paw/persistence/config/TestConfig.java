@@ -10,9 +10,13 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.jdbc.support.JdbcTransactionManager;
+import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+@EnableTransactionManagement
 @ComponentScan("ar.edu.itba.paw.persistence")
 @Configuration
 public class TestConfig {
@@ -33,6 +37,11 @@ public class TestConfig {
         ds.setPassword("");
 
         return ds;
+    }
+
+    @Bean
+    public TransactionManager transactionalManager(DataSource ds) {
+        return new JdbcTransactionManager(ds);
     }
 
     @Bean
