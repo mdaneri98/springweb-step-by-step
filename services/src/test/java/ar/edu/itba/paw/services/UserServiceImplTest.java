@@ -5,6 +5,8 @@ import ar.edu.itba.paw.persistence.UserDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.dao.DuplicateKeyException;
@@ -14,17 +16,25 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 
 
+/*
+    Permite que mockito analice la clase antes de ejecutar el test
+    => Permite utilizar anotaciones.
+ */
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
     private static final String USERNAME = "username";
+
+    @InjectMocks
     private UserServiceImpl userService;
 
+    @Mock
     private UserDao mock;
 
     @Before
     public void setUp() {
-        mock = Mockito.mock(UserDao.class);
-        this.userService = new UserServiceImpl(mock);
+        //mock = Mockito.mock(UserDao.class);
+        //this.userService = new UserServiceImpl(mock);
     }
 
     @Test
