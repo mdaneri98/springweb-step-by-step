@@ -2,9 +2,11 @@ package ar.edu.itba.paw.webapp.config;
 
 import ar.edu.itba.paw.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 
 /*
     @EnableWebMvc levanta los defaults.
@@ -57,13 +60,23 @@ public class WebConfig {
     }
 
     @Bean
+    public MessageSource messageSource() {
+        final ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
+
+        ms.setCacheSeconds(5);  //Solo para desarollo.
+        ms.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
+        ms.setBasename("i18n/messages"); //Nombre base, luego se concatena locale
+
+        return ms;
+    }
+
+    @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
         DataSourceInitializer dsi = new DataSourceInitializer();
         dsi.setDataSource(ds);
         dsi.setDatabasePopulator(dsPopulator());
         return dsi;
     }
-
     public DatabasePopulator dsPopulator() {
         ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
         dbp.addScript(schemaSql);

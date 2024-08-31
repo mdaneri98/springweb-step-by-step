@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: matiasdaneri
@@ -13,17 +16,23 @@
 <body>
 
 <c:url var="posturl" value="/create" />
-<form action="${posturl}" method="post">
+<form:form modelAttribute="userForm" action="${posturl}" method="post">
     <div>
-        <label>
-            Username
-            <input name="username" type="text">
-        </label>
+        <label> <spring:message code="hwc.create.username"/> <form:input path="username" type="text" /></label>
+        <form:errors path="username" element="p" cssStyle="color:red;"/>
+    </div>
+    <div>
+        <label> <spring:message code="hwc.create.password"/> <form:input path="password" type="text" /></label>
+        <form:errors path="password" element="p" cssStyle="color:red;"/>
+    </div>
+    <div>
+        <label> <spring:message code="hwc.create.repeatPassword"/> <form:input path="repeatPassword" type="password" placeholder="Repeat password"/></label>
+        <form:errors path="repeatPassword" cssStyle="color:error;" element="p"/>
     </div>
     <div>
         <input type="submit">
     </div>
-</form>
+</form:form>
 
 </body>
 </html>
