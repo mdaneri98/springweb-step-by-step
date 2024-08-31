@@ -6,3 +6,6 @@ webapp/.settings
 .settings
 .metadata
 .idea
+
+
+persistence/mem
