@@ -55,7 +55,7 @@ public class HelloWorldController {
 
         //TODO: "Generar una sesión" (así no redirije a /login)
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword(), null);
-        authenticationManager.authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authenticationToken));
 
         return new ModelAndView("redirect:/" + user.getId());
     }
