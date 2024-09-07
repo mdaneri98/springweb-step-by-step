@@ -2,9 +2,11 @@ package ar.edu.itba.paw.webapp.config;
 
 import ar.edu.itba.paw.webapp.auth.PawUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -20,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 @ComponentScan({ "ar.edu.itba.paw.webapp.auth" })
 @Configuration
 public class WebAuthConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("classpath:rememberme.key")
+    private Resource remembermeKey;
 
     @Autowired
     private PawUserDetailsService userDetailsService;
@@ -51,7 +56,12 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .defaultSuccessUrl("/", false)
                 .and().rememberMe()
-                .rememberMeParameter("remember_me").userDetailsService(userDetailsService)
+                .rememberMeParameter("remember_me")
+                /* Permite que al reiniciar el server, no se genere una nueva semilla y no pierda mi sesión.
+                * openssl -rand -base64 2048
+                * */
+                .key(new String(remembermeKey.getInputStream().readAllBytes()))
+                .userDetailsService(userDetailsService)
                 .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
                 .and().logout()
                 .logoutUrl("/logout")
