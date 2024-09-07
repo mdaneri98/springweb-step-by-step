@@ -16,6 +16,7 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <spring.version>5.3.33</spring.version>
+    <spring.security.version>4.0.4.RELEASE</spring.security.version> <!-- Creado originalmente por otra empresa -->
     <org.postgresql.version>42.2.5</org.postgresql.version>
     <junit.version>4.13.1</junit.version>
     <mockito.version>2.25.1</mockito.version>
@@ -91,6 +92,24 @@
         <artifactId>hibernate-validator</artifactId>
         <version>${org.hibernate-validator.version}</version>
       </dependency>
+
+      <!-- Spring security -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
