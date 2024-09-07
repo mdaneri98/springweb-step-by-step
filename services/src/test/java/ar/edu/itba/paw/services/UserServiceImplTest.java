@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 public class UserServiceImplTest {
 
     private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -40,10 +41,10 @@ public class UserServiceImplTest {
     @Test
     public void testCreate() {
         // 1. Precondiciones.
-        Mockito.when(mock.create(eq(USERNAME))).thenReturn(new User(1, USERNAME));
+        Mockito.when(mock.create(eq(USERNAME), eq(PASSWORD))).thenReturn(new User(1, USERNAME, PASSWORD));
 
         // 2. Ejercito la clase under test.
-        User user = userService.create(USERNAME);
+        User user = userService.create(USERNAME, PASSWORD);
 
         // 3. Valido las postcondiciones
         assertNotNull(user);
@@ -54,10 +55,10 @@ public class UserServiceImplTest {
     @Test(expected = DuplicateKeyException.class)
     public void testCreateDuplicate() {
         // 1. Precondiciones.
-        Mockito.when(mock.create(eq(USERNAME))).thenThrow(DuplicateKeyException.class);
+        Mockito.when(mock.create(eq(USERNAME), eq(PASSWORD))).thenThrow(DuplicateKeyException.class);
 
         // 2. Ejercito la clase under test.
-        User user = userService.create(USERNAME);
+        User user = userService.create(USERNAME, PASSWORD);
 
         // 3. Valido las postcondiciones
         fail();
