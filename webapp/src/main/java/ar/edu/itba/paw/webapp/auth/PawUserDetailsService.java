@@ -27,7 +27,7 @@ public class PawUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = us.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No such user"));
 
-        Set<SimpleGrantedAuthority> authorities = Set.of("user", "editor", "reviewer").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        Set<SimpleGrantedAuthority> authorities = Set.of("ROLE_USER", "ROLE_EDITOR", "ROLE_REVIEWER").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 
         return new PawUserDetails(user, authorities);
     }
