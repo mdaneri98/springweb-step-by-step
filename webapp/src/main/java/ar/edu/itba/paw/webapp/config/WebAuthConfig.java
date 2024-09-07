@@ -43,12 +43,17 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*
+         * Las pruebas se realizan en orden => Reglas genericas al final.
+         * recurso x role => Autorizar / Denegar (Default denega)
+         */
         http.sessionManagement()
                 .invalidSessionUrl("/login")
                 .and().authorizeRequests()
                 .antMatchers("/create", "/login").anonymous()
                 //.antMatchers("/profile").hasRole("USER")
                 .antMatchers("/post/edit").hasRole("EDITOR")
+                //.antMatchers("/{userId}").access("@accessHelper.isOwner(#principal, #userId) ")
                 .antMatchers("/**").authenticated()
                 .and().formLogin()
                 .usernameParameter("username")
