@@ -2,6 +2,7 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.User;
 import ar.edu.itba.paw.persistence.UserDao;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,8 +11,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    public UserServiceImpl(final UserDao userDao) {
+    private final PasswordEncoder passwordEncoder;
+
+
+    public UserServiceImpl(final UserDao userDao, final PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -35,7 +40,7 @@ public class UserServiceImpl implements UserService {
          5. Agregar al usuario a una cola de verificación manual
          6. ...
          */
-        return userDao.create(username, password);
+        return userDao.create(username, passwordEncoder.encode(password));
     }
 
 
