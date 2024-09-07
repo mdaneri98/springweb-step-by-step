@@ -22,7 +22,7 @@
         <form:errors path="username" element="p" cssStyle="color:red;"/>
     </div>
     <div>
-        <label> <spring:message code="hwc.create.password"/> <form:input path="password" type="text" /></label>
+        <label> <spring:message code="hwc.create.password"/> <form:input path="password" type="password" placeholder="Passowrd"/></label>
         <form:errors path="password" element="p" cssStyle="color:red;"/>
     </div>
     <div>
