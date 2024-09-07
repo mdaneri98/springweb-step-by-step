@@ -3,6 +3,10 @@ package ar.edu.itba.paw.webapp.controller;
 import ar.edu.itba.paw.User;
 import ar.edu.itba.paw.services.UserService;
 import ar.edu.itba.paw.webapp.form.UserForm;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +22,12 @@ import javax.validation.Valid;
 public class HelloWorldController {
 
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
-    public HelloWorldController(UserService userService) {
+
+    public HelloWorldController(UserService userService, final AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
     }
 
     @RequestMapping("/")
@@ -44,8 +51,12 @@ public class HelloWorldController {
         if (errors.hasErrors()) {
             return createForm(userForm);
         }
-
         final User user = userService.create(userForm.getUsername(), userForm.getPassword());
+
+        //TODO: "Generar una sesión" (así no redirije a /login)
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword(), null);
+        authenticationManager.authenticate(authenticationToken);
+
         return new ModelAndView("redirect:/" + user.getId());
     }
 
