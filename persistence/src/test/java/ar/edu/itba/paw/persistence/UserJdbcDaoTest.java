@@ -38,6 +38,7 @@ public class UserJdbcDaoTest {
 
     private static final long PREEXISTING_USER = 500;
     private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
 
     @Autowired
     private UserJdbcDao userJdbcDao;
@@ -60,7 +61,7 @@ public class UserJdbcDaoTest {
 
         
         // 2. Ejercito la clase under test
-        User user = userJdbcDao.create(USERNAME);
+        User user = userJdbcDao.create(USERNAME, PASSWORD);
         
         // 3. Postcondiciones 
         assertNotNull(user);

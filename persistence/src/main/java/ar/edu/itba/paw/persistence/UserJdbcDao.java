@@ -24,7 +24,7 @@ public class UserJdbcDao implements UserDao {
     * Se puede hacer ya que es STATELESS, sin problemas de concurrencia.
     * Todas las queries van a mappear cada row exactamente igual.
     * */
-    private static final RowMapper<User> ROW_MAPPER = (rs, rowNum) -> new User(rs.getLong("userid"), rs.getString("username"));
+    private static final RowMapper<User> ROW_MAPPER = (rs, rowNum) -> new User(rs.getLong("userid"), rs.getString("username"), rs.getString("password"));
 
     public UserJdbcDao(final DataSource ds) {
         //El JdbcTemplate le quita complejidad al DataSource hecho por Java.
@@ -45,11 +45,21 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User create(String username) {
+    public Optional<User> findByUsername(String username) {
+        // Jamás concatener valores en una query("SELECT ... WHERE username = " + id).
+        return jdbcTemplate.query("SELECT * FROM users WHERE username = ?",
+                new Object[]{ username },
+                new int[]{Types.VARCHAR},
+                ROW_MAPPER
+        ).stream().findFirst();
+    }
+
+    @Override
+    public User create(String username, String password) {
         Map<String, String> userData = Map.of("username", username);
         final Number generatedId = jdbcInsert.executeAndReturnKey(userData);
 
-        return new User(generatedId.longValue(), username);
+        return new User(generatedId.longValue(), username, password);
     }
 
 }

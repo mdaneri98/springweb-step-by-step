@@ -20,7 +20,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(String username) {
+    public Optional<User> findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @Override
+    public User create(String username, String password) {
         /*
         TODO:
          1. Validar inputs
@@ -30,12 +35,10 @@ public class UserServiceImpl implements UserService {
          5. Agregar al usuario a una cola de verificación manual
          6. ...
          */
-        return userDao.create(username);
+        return userDao.create(username, password);
     }
 
-    public User registerUser(final String username) {
-        return null;
-    }
+
 
 
 }

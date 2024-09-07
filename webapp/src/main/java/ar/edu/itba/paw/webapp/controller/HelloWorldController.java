@@ -45,7 +45,7 @@ public class HelloWorldController {
             return createForm(userForm);
         }
 
-        final User user = userService.create(userForm.getUsername());
+        final User user = userService.create(userForm.getUsername(), userForm.getPassword());
         return new ModelAndView("redirect:/" + user.getId());
     }
 
