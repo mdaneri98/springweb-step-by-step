@@ -7,10 +7,17 @@ import java.util.Collection;
 
 public class PawUserDetails extends User {
 
+    private final ar.edu.itba.paw.User user;
 
-
-    public PawUserDetails(ar.edu.itba.paw.User user, Collection<? extends GrantedAuthority> authorities) {
+    public PawUserDetails(final ar.edu.itba.paw.User user, Collection<? extends GrantedAuthority> authorities) {
         super(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
+        this.user = user;
     }
+
+    // Agrega un getter para tu clase User
+    public ar.edu.itba.paw.User getUser() {
+        return this.user;
+    }
+
 
 }
