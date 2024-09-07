@@ -55,4 +55,9 @@ public class HelloWorldController {
         return new ModelAndView("helloworld/create");
     }
 
+    @RequestMapping("/login")
+    public ModelAndView login() {
+        return new ModelAndView("/helloworld/login");
+    }
+
 }
