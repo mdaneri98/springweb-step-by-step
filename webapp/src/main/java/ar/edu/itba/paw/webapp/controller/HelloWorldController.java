@@ -53,7 +53,7 @@ public class HelloWorldController {
         }
         final User user = userService.create(userForm.getUsername(), userForm.getPassword());
 
-        //TODO: "Generar una sesión" (así no redirije a /login)
+        // "Generar una sesión" (así no redirije a /login)
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword(), null);
         SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(authenticationToken));
 
